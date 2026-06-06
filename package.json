@@ -1,0 +1,12 @@
+{
+  "name": "recetas-railway",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "build": "cd \"Proyecto de Recetas/backend\" && pnpm install && pnpm build",
+    "start": "cd \"Proyecto de Recetas/backend\" && pnpm start"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

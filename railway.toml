@@ -1,0 +1,9 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "cd \"Proyecto de Recetas/backend\" && pnpm install && pnpm build"
+
+[deploy]
+startCommand = "cd \"Proyecto de Recetas/backend\" && pnpm start"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"

@@ -17,13 +17,21 @@ Railway no tiene una IP fija; si solo whitelisteas tu casa, fallará en la nube.
 ## 2. Crear proyecto en Railway
 
 1. Entra a [railway.app](https://railway.app) e inicia sesión (GitHub sirve).
-2. **New Project** → **Deploy from GitHub repo**.
-3. Elige este repositorio.
-4. En el servicio → **Settings** → **Root Directory**:
-   ```
-   Proyecto de Recetas/backend
-   ```
-5. **Settings** → **Networking** → **Generate Domain** (te da una URL tipo `https://recetas-backend-production-xxxx.up.railway.app`).
+2. **New Project** → **Deploy from GitHub repo** → elige el repo completo (no pide carpeta al conectar; es normal).
+3. **Sube estos cambios a GitHub primero** (`railway.toml` y `package.json` en la raíz del repo). Sin push, Railway no los ve.
+
+### ¿Root Directory?
+
+**No hace falta** si ya están en GitHub los archivos de la **raíz del repo**:
+
+- `railway.toml` → compila y arranca `Proyecto de Recetas/backend`
+- `package.json` → scripts `build` y `start` apuntando al backend
+
+Railway despliega todo el repo pero solo ejecuta el backend.
+
+*(Opcional)* Si prefieres Root Directory: servicio → **Settings** → **Source** → `Proyecto de Recetas/backend`
+
+4. Servicio → **Settings** → **Networking** → **Generate Domain**
 
 ---
 
@@ -112,7 +120,7 @@ Perfil EAS **`preview`** = IP local. Perfil **`production`** = Railway.
 
 | Problema | Solución |
 |----------|----------|
-| Build falla en Railway | Root Directory = `Proyecto de Recetas/backend` |
+| Build falla en Railway | Haz **push** a GitHub con `railway.toml` en la raíz; revisa Deploy Logs |
 | `bad auth` MongoDB | URI mal o Atlas sin `0.0.0.0/0` |
 | Network Error en APK | URL vieja en `eas.json`; rebuild con perfil `production` |
 | 502 / app caída | Revisa **Deploy Logs** en Railway |
@@ -121,5 +129,6 @@ Perfil EAS **`preview`** = IP local. Perfil **`production`** = Railway.
 
 ## Archivos del repo
 
-- `railway.toml` — build y healthcheck
-- `package.json` → `pnpm build` + `pnpm start`
+- **`/railway.toml`** (raíz del repo) — apunta al backend
+- **`/package.json`** (raíz) — scripts build/start para Railway
+- `Proyecto de Recetas/backend/` — código de la API
