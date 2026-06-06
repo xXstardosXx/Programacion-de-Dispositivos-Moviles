@@ -3,7 +3,7 @@ builder = "NIXPACKS"
 buildCommand = "cd \"Proyecto de Recetas/backend\" && pnpm install --prod=false && pnpm build"
 
 [deploy]
-startCommand = "cd \"Proyecto de Recetas/backend\" && pnpm start"
+startCommand = "cd \"Proyecto de Recetas/backend\" && node dist/index.js"
 healthcheckPath = "/api/health"
-healthcheckTimeout = 120
+healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"

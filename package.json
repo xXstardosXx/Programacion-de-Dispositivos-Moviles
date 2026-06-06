@@ -4,7 +4,7 @@
   "packageManager": "pnpm@9.15.9",
   "scripts": {
     "build": "cd \"Proyecto de Recetas/backend\" && pnpm install --prod=false && pnpm build",
-    "start": "cd \"Proyecto de Recetas/backend\" && pnpm start"
+    "start": "node dist/index.js"
   },
   "engines": {
     "node": ">=18"

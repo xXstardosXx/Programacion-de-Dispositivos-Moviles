@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import net from 'net';
 import os from 'os';
-import { connectDB } from './config/db';
+import { connectDB, isDbConnected } from './config/db';
 import authRoutes from './routes/authRoutes';
 import groupRoutes from './routes/groupRoutes';
 import recipeRoutes from './routes/recipeRoutes';
@@ -25,7 +25,12 @@ app.get('/', (_req, res) => {
 });
 
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', message: 'API de Recetas funcionando' });
+  const dbConnected = isDbConnected();
+  res.json({
+    status: 'ok',
+    message: 'API de Recetas funcionando',
+    db: dbConnected ? 'connected' : 'disconnected',
+  });
 });
 
 app.use('/api/auth', authRoutes);
@@ -74,7 +79,6 @@ const findAvailablePort = (startPort: number, maxAttempts = 10): Promise<number>
   });
 
 const start = async () => {
-  await connectDB();
   const localIp = getLocalIp();
   const port = isProduction ? DEFAULT_PORT : await findAvailablePort(DEFAULT_PORT);
 
@@ -85,14 +89,20 @@ const start = async () => {
   }
 
   app.listen(port, '0.0.0.0', () => {
+    console.log(`Servidor escuchando en puerto ${port}`);
     if (isRailway && process.env.RAILWAY_PUBLIC_DOMAIN) {
       console.log(`API pública: https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api`);
     }
-    console.log(`Servidor: http://localhost:${port}`);
     if (!isProduction && localIp) {
       console.log(`Desde el telefono (local): http://${localIp}:${port}/api`);
     }
   });
+
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error('Error al conectar MongoDB (el servidor sigue arriba):', error);
+  }
 };
 
 start();
