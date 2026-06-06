@@ -42,7 +42,7 @@ En el servicio → **Variables**:
 | Variable | Valor |
 |----------|--------|
 | `MONGODB_URI` | Tu URI de Atlas (`.../recetas_app?...`) |
-| `JWT_SECRET` | Clave larga y secreta |
+| `JWT_SECRET` | Clave larga (solo el valor, sin texto extra). Ej: `recetas_app_secret_key_dev_2026` |
 | `JWT_EXPIRES_IN` | `7d` |
 | `NODE_ENV` | `production` |
 
@@ -120,6 +120,7 @@ Perfil EAS **`preview`** = IP local. Perfil **`production`** = Railway.
 
 | Problema | Solución |
 |----------|----------|
+| Build falla en `tsc` | `NODE_ENV=production` omite TypeScript; build usa `pnpm install --prod=false`. Haz push y redeploy. |
 | Build falla en Railway | Haz **push** a GitHub con `railway.toml` en la raíz; revisa Deploy Logs |
 | `bad auth` MongoDB | URI mal o Atlas sin `0.0.0.0/0` |
 | Network Error en APK | URL vieja en `eas.json`; rebuild con perfil `production` |
