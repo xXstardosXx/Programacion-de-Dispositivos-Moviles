@@ -19,7 +19,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "programacion-de-dispositivos-moviles-production.up.railway.app"
+        "EXPO_PUBLIC_API_URL": "https://programacion-de-dispositivos-moviles-production.up.railway.app/api"
       }
     }
   }
