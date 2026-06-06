@@ -19,7 +19,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://REEMPLAZA.up.railway.app/api"
+        "EXPO_PUBLIC_API_URL": "programacion-de-dispositivos-moviles-production.up.railway.app"
       }
     }
   }
