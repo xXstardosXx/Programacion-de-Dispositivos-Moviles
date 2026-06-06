@@ -1,10 +1,12 @@
 # Dependencias
 **/node_modules/
 
-# Variables de entorno (nunca subir secretos)
+# Variables de entorno y secretos (mantener .env.example)
 **/.env
 **/.env.local
 **/.env.*.local
+**/.env.backup
+**/VARIABLES_ENTORNO*.txt
 !**/.env.example
 
 # Build
@@ -14,6 +16,12 @@
 # Expo / React Native
 **/.expo/
 **/expo-env.d.ts
+**/.eas/
+**/android/
+**/ios/
+*.apk
+*.aab
+*.ipa
 
 # Logs
 *.log
@@ -43,3 +51,5 @@ coverage/
 # Certificados y caché
 *.pem
 .cache/
+credentials.json
+google-services.json

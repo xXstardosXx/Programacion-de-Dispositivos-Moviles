@@ -7,22 +7,29 @@ frontend/node_modules/
 .env
 .env.local
 .env.*.local
+.env.backup
 backend/.env
 frontend/.env
+VARIABLES_ENTORNO*.txt
 !.env.example
 !backend/.env.example
 !frontend/.env.example
 
-# Build
+# Build backend
 dist/
 backend/dist/
+
+# Expo / frontend
 frontend/dist/
 frontend/web-build/
-
-# Expo
 .expo/
 frontend/.expo/
 frontend/expo-env.d.ts
+frontend/.eas/
+frontend/android/
+frontend/ios/
+*.apk
+*.aab
 
 # Logs
 *.log
@@ -30,6 +37,7 @@ frontend/expo-env.d.ts
 # Sistema operativo
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # IDE
 .idea/
@@ -41,3 +49,7 @@ Thumbs.db
 
 # Coverage
 coverage/
+
+# Credenciales
+credentials.json
+google-services.json

@@ -106,6 +106,24 @@ taskkill /PID 12345 /F
 
 ---
 
+## Backend en Railway (opcional)
+
+Para usar la app **sin tu PC encendida** y **desde cualquier red** (solo internet):
+
+1. Despliega el backend en [Railway](https://railway.app) (guía: `backend/RAILWAY.md`).
+2. Atlas → Network Access → `0.0.0.0/0` (Railway no tiene IP fija).
+3. Obtén la URL pública: `https://tu-backend.up.railway.app/api/health`
+4. En la app:
+   - **Expo Go:** `EXPO_PUBLIC_API_URL=https://tu-backend.up.railway.app/api` en `frontend/.env`
+   - **APK:** misma URL en `eas.json` perfil `production` → `pnpm build:apk:prod`
+
+| Modo | URL | ¿PC encendida? | ¿Misma WiFi? |
+|------|-----|----------------|--------------|
+| Local | `http://TU_IP:3000/api` | Sí | Sí |
+| Railway | `https://xxx.up.railway.app/api` | No | No |
+
+---
+
 ## Frontend (Expo Go en teléfono)
 
 ```bash

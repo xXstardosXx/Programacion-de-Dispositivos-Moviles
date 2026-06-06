@@ -13,10 +13,16 @@ dotenv.config();
 
 const app = express();
 const DEFAULT_PORT = Number(process.env.PORT) || 3000;
+const isRailway = Boolean(process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID);
+const isProduction = process.env.NODE_ENV === 'production' || isRailway;
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
+
+app.get('/', (_req, res) => {
+  res.json({ status: 'ok', api: '/api/health' });
+});
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: 'API de Recetas funcionando' });
@@ -70,18 +76,21 @@ const findAvailablePort = (startPort: number, maxAttempts = 10): Promise<number>
 const start = async () => {
   await connectDB();
   const localIp = getLocalIp();
-  const port = await findAvailablePort(DEFAULT_PORT);
+  const port = isProduction ? DEFAULT_PORT : await findAvailablePort(DEFAULT_PORT);
 
-  if (port !== DEFAULT_PORT) {
+  if (!isProduction && port !== DEFAULT_PORT) {
     console.warn(
       `Usando puerto ${port}. Actualiza EXPO_PUBLIC_API_URL en frontend/.env si pruebas desde el teléfono.`
     );
   }
 
   app.listen(port, '0.0.0.0', () => {
-    console.log(`Servidor local: http://localhost:${port}`);
-    if (localIp) {
-      console.log(`Desde el telefono: http://${localIp}:${port}/api`);
+    if (isRailway && process.env.RAILWAY_PUBLIC_DOMAIN) {
+      console.log(`API pública: https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api`);
+    }
+    console.log(`Servidor: http://localhost:${port}`);
+    if (!isProduction && localIp) {
+      console.log(`Desde el telefono (local): http://${localIp}:${port}/api`);
     }
   });
 };

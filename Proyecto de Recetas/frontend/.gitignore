@@ -1,10 +1,18 @@
 node_modules/
 .expo/
+.eas/
 dist/
 web-build/
+android/
+ios/
 .env
 .env.local
+.env.backup
 !.env.example
 *.log
 expo-env.d.ts
 *.tsbuildinfo
+*.apk
+*.aab
+
+# assets/ SÍ se sube (iconos necesarios para el build)

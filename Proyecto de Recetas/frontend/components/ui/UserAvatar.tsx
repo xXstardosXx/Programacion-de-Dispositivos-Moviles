@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ViewStyle } from 'react-native';
+import { View, Text, Image, StyleSheet, ViewStyle, ImageStyle } from 'react-native';
 import { colors } from '../../constants/theme';
 
 interface UserAvatarProps {
@@ -24,7 +24,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
         style={[
           styles.image,
           { width: size, height: size, borderRadius: radius },
-          style,
+          style as ImageStyle | undefined,
         ]}
       />
     );
