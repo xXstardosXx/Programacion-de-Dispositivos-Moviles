@@ -1,0 +1,43 @@
+# Dependencias
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Variables de entorno (mantener .env.example en git)
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# Build
+dist/
+backend/dist/
+frontend/dist/
+frontend/web-build/
+
+# Expo
+.expo/
+frontend/.expo/
+frontend/expo-env.d.ts
+
+# Logs
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/

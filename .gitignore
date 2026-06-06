@@ -1,0 +1,45 @@
+# Dependencias
+**/node_modules/
+
+# Variables de entorno (nunca subir secretos)
+**/.env
+**/.env.local
+**/.env.*.local
+!**/.env.example
+
+# Build
+**/dist/
+**/web-build/
+
+# Expo / React Native
+**/.expo/
+**/expo-env.d.ts
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.idea/
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Tests / coverage
+coverage/
+
+# Certificados y caché
+*.pem
+.cache/
