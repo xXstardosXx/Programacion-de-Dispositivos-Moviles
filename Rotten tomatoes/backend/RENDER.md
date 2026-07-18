@@ -35,8 +35,8 @@ backend + frontend Ionic (sin `.env`).
 |-------|--------|
 | **Root Directory** | `Rotten tomatoes/backend` |
 | **Runtime** | Node |
-| **Build Command** | `corepack enable && pnpm install --prod=false && pnpm build` |
-| **Start Command** | `pnpm start:prod` |
+| **Build Command** | `npm install --include=dev && npm run build` |
+| **Start Command** | `npx prisma db push && node dist/index.js` |
 | **Health Check Path** | `/api/health` |
 
 4. Plan **Free** está bien para la materia (se duerme tras inactividad).
@@ -127,7 +127,7 @@ Para demostrar la app en clase o desde cualquier red, usa siempre la URL de Rend
 
 | Problema | Solución |
 |----------|----------|
-| Build falla en `pnpm` | El build usa `corepack enable && pnpm install --prod=false` |
+| Build falla en `pnpm` / `corepack` / `EROFS` | No uses `corepack enable`. Build: `npm install --include=dev && npm run build` |
 | `Can't reach database` | Revisa `DATABASE_URL` (Pooled + `sslmode=require`) |
 | `rawg: missing` | Falta `RAWG_API_KEY` en Environment |
 | Primer request lento | Plan Free: el servicio se duerme; espera ~30–60 s |
