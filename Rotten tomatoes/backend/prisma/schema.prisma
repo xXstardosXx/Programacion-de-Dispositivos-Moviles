@@ -36,30 +36,30 @@ model User {
 }
 
 model Game {
-  id           String    @id @default(cuid())
+  id            String       @id @default(cuid())
   /// ID original en RAWG. Único para no duplicar al cachear.
-  rawgId       Int       @unique
-  title        String    @db.VarChar(300)
-  slug         String?   @db.VarChar(300)
-  overview     String    @default("") @db.Text
-  releaseDate  DateTime?
+  rawgId        Int          @unique
+  title         String       @db.VarChar(300)
+  slug          String?      @db.VarChar(300)
+  overview      String       @default("") @db.Text
+  releaseDate   DateTime?
   /// Solo URL (CDN de RAWG). NO se guarda el binario de la imagen.
-  coverUrl     String?   @db.Text
-  backgroundUrl String?  @db.Text
-  metacritic   Int?
-  rawgRating   Float?
-  playtime     Int? // horas aproximadas (RAWG)
+  coverUrl      String?      @db.Text
+  backgroundUrl String?      @db.Text
+  metacritic    Int?
+  rawgRating    Float?
+  playtime      Int?
   /// Plataformas: [{ id, name }]
-  platforms    Json      @default("[]")
+  platforms     Json         @default("[]")
   /// Desarrolladores: [{ id, name }]
-  developers   Json      @default("[]")
+  developers    Json         @default("[]")
   /// Clasificación ESRB guardada (ej: "Teen", "Mature"). Nunca "Adults Only".
-  esrbRating   String?   @db.VarChar(40)
-  genres       Genre[]      @relation("GameGenres")
-  reviews      Review[]
-  hiddenBy     HiddenGame[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  esrbRating    String?      @db.VarChar(40)
+  genres        Genre[]      @relation("GameGenres")
+  reviews       Review[]
+  hiddenBy      HiddenGame[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 
   @@index([title])
   @@index([releaseDate])
@@ -99,3 +99,4 @@ model Review {
 
   @@unique([userId, gameId])
   @@index([gameId])
+}
