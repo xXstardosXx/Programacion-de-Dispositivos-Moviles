@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  // En producción apunta al backend en Render.
-  apiUrl: 'https://TU-SERVICIO.onrender.com/api',
+  // Backend en Render (servicio live)
+  apiUrl: 'https://programacion-de-dispositivos-moviles.onrender.com/api',
 };

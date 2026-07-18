@@ -28,7 +28,7 @@ Edita la URL de la API según dónde corra tu backend:
 - Desarrollo (navegador): `src/environments/environment.ts` → `apiUrl`
   - PC local: `http://localhost:4001/api`
 - Producción / APK: `src/environments/environment.prod.ts` → `apiUrl`
-  - Backend en Render: `https://TU-SERVICIO.onrender.com/api`
+  - Backend en Render: `https://programacion-de-dispositivos-moviles.onrender.com/api`
 
 > El token JWT se guarda en `localStorage` (funciona en navegador y en el WebView de Android).
 
