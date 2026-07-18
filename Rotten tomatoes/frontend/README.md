@@ -10,7 +10,7 @@ Usa **pnpm** (no npm).
 ## Requisitos
 
 - Node 18+ (probado con Node 22)
-- pnpm 9 (`corepack enable` o `npm i -g pnpm`)
+- pnpm 9 (`corepack enable`)
 - Ionic CLI (opcional): `pnpm add -g @ionic/cli`
 - Para el APK: Android Studio + JDK 17 (lo instala Android Studio)
 
