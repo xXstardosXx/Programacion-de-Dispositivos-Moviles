@@ -1,0 +1,128 @@
+.hero {
+  position: relative;
+  z-index: 1;
+  background: var(--qs-primary-dark);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  padding: 72px 24px 64px;
+  text-align: center;
+  overflow: hidden;
+}
+.deco {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.12);
+}
+.deco1 {
+  font-size: 120px;
+  top: -20px;
+  right: -20px;
+}
+.deco2 {
+  font-size: 90px;
+  bottom: -10px;
+  left: -10px;
+}
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  position: relative;
+  z-index: 1;
+}
+.logo ion-icon {
+  font-size: 42px;
+  color: var(--qs-primary);
+}
+.brand {
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.tagline {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  margin: 6px 0 0;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  background: var(--qs-surface);
+  border: 1px solid var(--qs-border);
+  border-radius: var(--qs-radius-lg);
+  box-shadow: var(--qs-shadow-card);
+  margin: -20px 20px 24px;
+  padding: 28px 24px 24px;
+  max-width: 560px;
+}
+@media (min-width: 600px) {
+  .card {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.card-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--qs-text);
+  margin: 0 0 18px;
+}
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--qs-text);
+  margin: 12px 0 6px;
+}
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--qs-surface-alt);
+  border: 1.5px solid var(--qs-border);
+  border-radius: var(--qs-radius-md);
+  padding: 0 14px;
+}
+.field ion-icon {
+  font-size: 20px;
+  color: var(--qs-text-light);
+}
+.field .eye {
+  cursor: pointer;
+}
+.field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--qs-text);
+  font-size: 16px;
+  padding: 15px 0;
+}
+.submit {
+  margin-top: 22px;
+  --border-radius: var(--qs-radius-md);
+  height: 52px;
+  font-weight: 700;
+}
+.foot {
+  text-align: center;
+  margin: 18px 0 0;
+  color: var(--qs-text-light);
+  font-size: 14px;
+}
+.foot a {
+  color: var(--qs-primary);
+  font-weight: 700;
+  text-decoration: none;
+}

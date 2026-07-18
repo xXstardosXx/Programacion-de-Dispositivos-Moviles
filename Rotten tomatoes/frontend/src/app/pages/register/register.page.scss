@@ -1,0 +1,103 @@
+.form {
+  padding-top: 8px;
+  padding-bottom: 40px;
+}
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--qs-text);
+  margin: 16px 0 6px;
+}
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--qs-surface);
+  border: 1.5px solid var(--qs-border);
+  border-radius: var(--qs-radius-md);
+  padding: 0 14px;
+}
+.field ion-icon {
+  font-size: 20px;
+  color: var(--qs-text-light);
+}
+.field .eye {
+  cursor: pointer;
+}
+.field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--qs-text);
+  font-size: 16px;
+  padding: 15px 0;
+}
+.hint {
+  font-size: 12px;
+  color: var(--qs-text-light);
+  margin: 6px 2px 0;
+}
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 10px;
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--qs-text-light);
+}
+.check ion-icon {
+  font-size: 14px;
+}
+.check.ok {
+  color: var(--qs-success);
+}
+.roles {
+  display: flex;
+  gap: 12px;
+}
+.role {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 14px 10px;
+  border-radius: var(--qs-radius-md);
+  background: var(--qs-surface);
+  border: 1.5px solid var(--qs-border);
+}
+.role ion-icon {
+  font-size: 22px;
+  color: var(--qs-text-light);
+}
+.role.active {
+  border-color: var(--qs-primary);
+  background: rgba(225, 29, 42, 0.1);
+}
+.role.active ion-icon {
+  color: var(--qs-primary);
+}
+.role-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--qs-text);
+}
+.role-desc {
+  font-size: 11px;
+  color: var(--qs-text-light);
+  line-height: 15px;
+}
+.submit {
+  margin-top: 24px;
+  --border-radius: var(--qs-radius-md);
+  height: 52px;
+  font-weight: 700;
+}

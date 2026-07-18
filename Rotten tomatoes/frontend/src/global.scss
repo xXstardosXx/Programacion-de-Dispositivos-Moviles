@@ -1,0 +1,107 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* Forzamos modo oscuro siempre (la app es dark) */
+@import "@ionic/angular/css/palettes/dark.always.css";
+
+/* ===============================================================
+ * Estilos globales QuestScore
+ * =============================================================== */
+
+body {
+  background: var(--qs-background);
+  color: var(--qs-text);
+}
+
+ion-content {
+  --background: var(--qs-background);
+}
+
+ion-toolbar {
+  --background: var(--qs-background);
+  --border-color: transparent;
+  --color: var(--qs-text);
+}
+
+/* Título de sección tipo ScreenHeader */
+.qs-screen-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--qs-text);
+  margin: 0;
+}
+.qs-screen-subtitle {
+  font-size: 14px;
+  color: var(--qs-text-light);
+  margin-top: 2px;
+}
+
+/* Contenedor de contenido centrado (contentMaxWidth 600) */
+.qs-container {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Utilidades de texto */
+.qs-muted {
+  color: var(--qs-text-light);
+}
+
+/* Scroll horizontal sin barra */
+.qs-hscroll {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.qs-hscroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Alertas / modales Ionic en modo oscuro */
+.alert-wrapper.sc-ion-alert-md,
+.alert-wrapper.sc-ion-alert-ios {
+  --background: var(--qs-surface);
+  background: var(--qs-surface);
+}
+
+/* Sin asa de redimensionar en inputs/textarea */
+textarea,
+input {
+  resize: none;
+}

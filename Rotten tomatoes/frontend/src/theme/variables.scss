@@ -1,0 +1,87 @@
+// ===============================================================
+// QuestScore theme — dark, tomato-red accent
+// Migrado desde constants/theme.ts del proyecto Expo
+// ===============================================================
+
+:root {
+  // ---- App tokens (usados en los componentes) ----
+  --qs-background: #12100e;
+  --qs-surface: #1e1b18;
+  --qs-surface-alt: #2a2622;
+  --qs-primary: #e11d2a;
+  --qs-primary-dark: #b0141f;
+  --qs-audience: #f5a623;
+  --qs-critic: #fa320a;
+  --qs-success: #21d07a;
+  --qs-text: #f5f3f0;
+  --qs-text-light: #a39e97;
+  --qs-border: #332f2a;
+  --qs-error: #ff5a5f;
+  --qs-star: #f5c518;
+  --qs-gradient-start: #e11d2a;
+  --qs-gradient-end: #7a0a12;
+
+  --qs-radius-sm: 8px;
+  --qs-radius-md: 12px;
+  --qs-radius-lg: 20px;
+  --qs-radius-full: 999px;
+
+  --qs-space-xs: 4px;
+  --qs-space-sm: 8px;
+  --qs-space-md: 16px;
+  --qs-space-lg: 24px;
+  --qs-space-xl: 32px;
+
+  --qs-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  // ---- Ionic core variables ----
+  --ion-background-color: #12100e;
+  --ion-background-color-rgb: 18, 16, 14;
+  --ion-text-color: #f5f3f0;
+  --ion-text-color-rgb: 245, 243, 240;
+
+  --ion-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --ion-toolbar-background: #12100e;
+  --ion-toolbar-color: #f5f3f0;
+  --ion-tab-bar-background: #1e1b18;
+  --ion-tab-bar-color: #a39e97;
+  --ion-tab-bar-color-selected: #e11d2a;
+
+  --ion-item-background: transparent;
+  --ion-card-background: #1e1b18;
+
+  --ion-border-color: #332f2a;
+
+  // Primary
+  --ion-color-primary: #e11d2a;
+  --ion-color-primary-rgb: 225, 29, 42;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #b0141f;
+  --ion-color-primary-tint: #e53442;
+
+  // Secondary (surfaceAlt)
+  --ion-color-secondary: #2a2622;
+  --ion-color-secondary-rgb: 42, 38, 34;
+  --ion-color-secondary-contrast: #f5f3f0;
+  --ion-color-secondary-contrast-rgb: 245, 243, 240;
+  --ion-color-secondary-shade: #252220;
+  --ion-color-secondary-tint: #3a352f;
+
+  // Danger
+  --ion-color-danger: #ff5a5f;
+  --ion-color-danger-rgb: 255, 90, 95;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #e04f54;
+  --ion-color-danger-tint: #ff6b6f;
+
+  // Success
+  --ion-color-success: #21d07a;
+  --ion-color-success-rgb: 33, 208, 122;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #1db76b;
+  --ion-color-success-tint: #37d587;
+}

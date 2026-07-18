@@ -1,0 +1,154 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Explorar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="loadHome($event)" *ngIf="!isSearchMode">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="qs-container top">
+    <!-- Buscador -->
+    <div class="search">
+      <ion-icon name="search-outline"></ion-icon>
+      <input
+        placeholder="Buscar videojuegos..."
+        [(ngModel)]="query"
+        (ngModelChange)="onSearchChange()"
+      />
+      <ion-icon *ngIf="query" name="close-circle" (click)="clearSearch()"></ion-icon>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters">
+      <div class="qs-hscroll genres">
+        <button
+          type="button"
+          class="chip"
+          [class.active]="selectedGenre === null"
+          (click)="selectGenre(null)"
+        >
+          Todos
+        </button>
+        <button
+          type="button"
+          class="chip"
+          *ngFor="let g of genres"
+          [class.active]="selectedGenre === g.id"
+          (click)="selectGenre(g.id)"
+        >
+          {{ g.name }}
+        </button>
+      </div>
+      <button type="button" class="sort-btn" (click)="openSort()" *ngIf="!isSearchMode">
+        <ion-icon name="swap-vertical"></ion-icon>
+        <span>{{ sortLabel }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="center" *ngIf="loading && !isSearchMode">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- MODO BÚSQUEDA -->
+  <div class="qs-container list" *ngIf="isSearchMode">
+    <div class="center" *ngIf="searching">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <ng-container *ngIf="!searching">
+      <h2 class="section-title" *ngIf="searchLocal.length">En QuestScore</h2>
+      <app-game-card
+        *ngFor="let g of searchLocal"
+        [title]="g.title"
+        [coverUrl]="g.coverUrl"
+        [year]="year(g.releaseDate)"
+        [genres]="g.genres"
+        [audienceScore]="g.audienceScore"
+        [audienceCount]="g.audienceCount"
+        [criticScore]="g.criticScore"
+        [criticCount]="g.criticCount"
+        (press)="openLocal(g.id)"
+      ></app-game-card>
+
+      <h2 class="section-title" *ngIf="searchExternal.length">Resultados del catálogo global</h2>
+      <app-game-card
+        *ngFor="let g of searchExternal"
+        [title]="g.title"
+        [coverUrl]="g.coverUrl"
+        [year]="year(g.releaseDate)"
+        [genres]="g.genres"
+        [isNew]="true"
+        (press)="openExternal(g.rawgId)"
+      ></app-game-card>
+
+      <app-empty-state
+        *ngIf="!searchLocal.length && !searchExternal.length"
+        icon="search-outline"
+        title="Sin resultados"
+        subtitle="Prueba con otro nombre. El contenido para adultos se filtra automáticamente."
+      ></app-empty-state>
+    </ng-container>
+  </div>
+
+  <!-- MODO HOME -->
+  <div class="qs-container list" *ngIf="!isSearchMode && !loading">
+    <!-- Tendencia -->
+    <ng-container *ngIf="trending.length">
+      <div class="section-head">
+        <h2 class="section-title">
+          <ion-icon name="trending-up-outline" aria-hidden="true"></ion-icon>
+          Tendencia
+        </h2>
+        <button
+          type="button"
+          class="see-more"
+          *ngIf="trending.length > 5"
+          (click)="showAllTrending = !showAllTrending"
+        >
+          {{ showAllTrending ? 'Ver menos' : 'Ver más' }}
+        </button>
+      </div>
+      <app-game-card
+        *ngFor="let g of visibleTrending"
+        [title]="g.title"
+        [coverUrl]="g.coverUrl"
+        [year]="year(g.releaseDate)"
+        [genres]="g.genres"
+        [audienceScore]="g.audienceScore"
+        [audienceCount]="g.audienceCount"
+        [criticScore]="g.criticScore"
+        [criticCount]="g.criticCount"
+        (press)="openLocal(g.id)"
+      ></app-game-card>
+    </ng-container>
+
+    <!-- Para descubrir -->
+    <ng-container *ngIf="discover.length">
+      <h2 class="section-title mt">
+        <ion-icon name="compass-outline" aria-hidden="true"></ion-icon>
+        Para descubrir
+      </h2>
+      <app-game-card
+        *ngFor="let g of discover"
+        [title]="g.title"
+        [coverUrl]="g.coverUrl"
+        [year]="year(g.releaseDate)"
+        [genres]="g.genres"
+        [isNew]="true"
+        (press)="openExternal(g.rawgId)"
+      ></app-game-card>
+    </ng-container>
+
+    <app-empty-state
+      *ngIf="!trending.length && !discover.length"
+      icon="game-controller-outline"
+      title="Nada por aquí todavía"
+      subtitle="Busca un videojuego para empezar a reseñar."
+    ></app-empty-state>
+  </div>
+</ion-content>

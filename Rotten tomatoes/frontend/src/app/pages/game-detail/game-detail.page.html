@@ -1,0 +1,137 @@
+<ion-content [fullscreen]="true">
+  <div class="center full" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <ng-container *ngIf="!loading && game as g">
+    <!-- Backdrop -->
+    <div class="backdrop" [style.backgroundImage]="g.backgroundUrl ? 'url(' + g.backgroundUrl + ')' : 'none'">
+      <div class="backdrop-overlay"></div>
+      <button type="button" class="back-btn" (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </div>
+
+    <div class="qs-container body">
+      <!-- Header -->
+      <div class="header">
+        <div class="cover">
+          <img *ngIf="g.coverUrl" [src]="g.coverUrl" alt="" />
+          <div class="cover-fallback" *ngIf="!g.coverUrl">
+            <ion-icon name="game-controller"></ion-icon>
+          </div>
+        </div>
+        <div class="head-info">
+          <h1 class="title">{{ g.title }}</h1>
+          <div class="meta">
+            <span *ngIf="year(g.releaseDate)">{{ year(g.releaseDate) }}</span>
+            <span *ngIf="g.playtime">· {{ g.playtime }}h aprox</span>
+            <span *ngIf="g.esrbRating">· {{ g.esrbRating }}</span>
+            <span *ngIf="g.metacritic">· Metacritic {{ g.metacritic }}</span>
+          </div>
+          <div class="genres">
+            <span class="genre" *ngFor="let gen of labels(g.genres).slice(0, 3)">{{ gen }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Puntuaciones -->
+      <div class="scores">
+        <app-score-badge
+          [score]="g.audienceScore"
+          [count]="g.audienceCount"
+          kind="audience"
+        ></app-score-badge>
+        <app-score-badge
+          [score]="g.criticScore"
+          [count]="g.criticCount"
+          kind="critic"
+        ></app-score-badge>
+      </div>
+
+      <!-- Ocultar / mostrar del catálogo -->
+      <ion-button expand="block" fill="outline" class="hide-btn" (click)="toggleHidden()">
+        <ion-icon slot="start" [name]="g.isHidden ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+        {{ g.isHidden ? 'Restaurar en mi catálogo' : 'Quitar de mi catálogo' }}
+      </ion-button>
+
+      <!-- Capturas -->
+      <ng-container *ngIf="g.screenshots && g.screenshots.length">
+        <h2 class="section-title">Capturas</h2>
+        <div class="qs-hscroll shots">
+          <img class="shot" *ngFor="let s of g.screenshots" [src]="s" alt="" />
+        </div>
+      </ng-container>
+
+      <!-- Info -->
+      <ng-container *ngIf="labels(g.platforms).length">
+        <h2 class="section-title">Plataformas</h2>
+        <p class="info-text">{{ labels(g.platforms).join(' · ') }}</p>
+      </ng-container>
+
+      <ng-container *ngIf="labels(g.developers).length">
+        <h2 class="section-title">Desarrolladores</h2>
+        <p class="info-text">{{ labels(g.developers).join(' · ') }}</p>
+      </ng-container>
+
+      <ng-container *ngIf="g.overview">
+        <h2 class="section-title">Sinopsis</h2>
+        <app-scrollable-text-block
+          [text]="g.overview"
+          [title]="g.title"
+        ></app-scrollable-text-block>
+      </ng-container>
+
+      <!-- Formulario reseña -->
+      <h2 class="section-title">{{ hasMyReview ? 'Tu reseña' : 'Escribe tu reseña' }}</h2>
+      <div class="review-form">
+        <app-score-selector [value]="score" (valueChange)="score = $event"></app-score-selector>
+        <textarea
+          class="review-text"
+          rows="4"
+          placeholder="Cuenta qué te pareció el juego (opcional)"
+          [(ngModel)]="content"
+          [maxlength]="maxContent"
+        ></textarea>
+        <p class="counter">{{ content.length }}/{{ maxContent }}</p>
+
+        <ion-button expand="block" class="publish" (click)="submitReview()" [disabled]="saving">
+          <ion-spinner *ngIf="saving" name="crescent"></ion-spinner>
+          <span *ngIf="!saving">{{ hasMyReview ? 'Actualizar reseña' : 'Publicar reseña' }}</span>
+        </ion-button>
+        <ion-button
+          *ngIf="hasMyReview"
+          expand="block"
+          fill="clear"
+          color="danger"
+          (click)="deleteReview()"
+          [disabled]="saving"
+        >
+          Eliminar mi reseña
+        </ion-button>
+      </div>
+
+      <!-- Lista reseñas -->
+      <h2 class="section-title">Reseñas ({{ g.reviews.total }})</h2>
+      <app-review-card
+        *ngFor="let r of reviews"
+        [review]="r"
+        [isOwn]="r.userId === myUserId"
+      ></app-review-card>
+
+      <p class="no-reviews" *ngIf="!reviews.length">Todavía no hay reseñas. ¡Sé el primero!</p>
+
+      <ion-button
+        *ngIf="hasMore"
+        expand="block"
+        fill="outline"
+        class="more-btn"
+        (click)="loadMore()"
+        [disabled]="loadingMore"
+      >
+        <ion-spinner *ngIf="loadingMore" name="crescent"></ion-spinner>
+        <span *ngIf="!loadingMore">Ver más reseñas</span>
+      </ion-button>
+    </div>
+  </ng-container>
+</ion-content>

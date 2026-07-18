@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="qs-container form">
+    <h1 class="qs-screen-title">Únete a QuestScore</h1>
+    <p class="qs-screen-subtitle">Puntúa, reseña y descubre videojuegos.</p>
+
+    <label class="field-label">Nombre de usuario</label>
+    <div class="field">
+      <ion-icon name="person-outline"></ion-icon>
+      <input placeholder="tu_usuario" [(ngModel)]="name" autocapitalize="off" />
+    </div>
+
+    <label class="field-label">Correo</label>
+    <div class="field">
+      <ion-icon name="mail-outline"></ion-icon>
+      <input type="email" inputmode="email" placeholder="tucorreo@gmail.com" [(ngModel)]="email" autocapitalize="off" />
+    </div>
+    <p class="hint">Solo se aceptan correos @gmail.com o @hotmail.com</p>
+
+    <label class="field-label">Contraseña</label>
+    <div class="field">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Contraseña segura"
+        [(ngModel)]="password"
+      />
+      <ion-icon
+        class="eye"
+        [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+        (click)="showPassword = !showPassword"
+      ></ion-icon>
+    </div>
+
+    <div class="checks" *ngIf="password">
+      <span class="check" *ngFor="let c of checkList" [class.ok]="c.ok">
+        <ion-icon [name]="c.ok ? 'checkmark-circle' : 'ellipse-outline'"></ion-icon>
+        {{ c.label }}
+      </span>
+    </div>
+
+    <label class="field-label">Confirmar contraseña</label>
+    <div class="field">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Repite la contraseña"
+        [(ngModel)]="confirm"
+      />
+    </div>
+
+    <label class="field-label">Tipo de cuenta</label>
+    <div class="roles">
+      <button type="button" class="role" [class.active]="role === 'USER'" (click)="role = 'USER'">
+        <ion-icon name="people"></ion-icon>
+        <span class="role-name">Audiencia</span>
+        <span class="role-desc">Tu voto cuenta para la puntuación del público</span>
+      </button>
+      <button type="button" class="role" [class.active]="role === 'CRITIC'" (click)="role = 'CRITIC'">
+        <ion-icon name="ribbon"></ion-icon>
+        <span class="role-name">Crítico</span>
+        <span class="role-desc">Tu voto cuenta para la puntuación de críticos</span>
+      </button>
+    </div>
+
+    <ion-button expand="block" class="submit" (click)="submit()" [disabled]="loading">
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+      <span *ngIf="!loading">Crear cuenta</span>
+    </ion-button>
+  </div>
+</ion-content>

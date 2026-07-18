@@ -1,0 +1,23 @@
+# Blueprint de Render — también puedes crear el Web Service a mano (ver RENDER.md).
+# Si usas Blueprint desde el repo raíz, apunta a este archivo o copia el servicio.
+
+services:
+  - type: web
+    name: questscore-api
+    runtime: node
+    plan: free
+    rootDir: Rotten tomatoes/backend
+    buildCommand: corepack enable && pnpm install --prod=false && pnpm build
+    startCommand: pnpm start:prod
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: RAWG_API_KEY
+        sync: false

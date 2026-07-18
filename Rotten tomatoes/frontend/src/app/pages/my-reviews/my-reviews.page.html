@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Mis Reseñas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="load($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="center" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div class="qs-container list" *ngIf="!loading">
+    <button type="button" class="review" *ngFor="let r of reviews" (click)="open(r.game.id)">
+      <div class="cover">
+        <img *ngIf="r.game.coverUrl" [src]="r.game.coverUrl" alt="" />
+        <div class="cover-fallback" *ngIf="!r.game.coverUrl">
+          <ion-icon name="game-controller"></ion-icon>
+        </div>
+      </div>
+      <div class="content">
+        <p class="title">{{ r.game.title }}</p>
+        <p class="year" *ngIf="year(r.game.releaseDate)">{{ year(r.game.releaseDate) }}</p>
+        <p class="text">{{ r.content || 'Sin comentario.' }}</p>
+      </div>
+      <span class="score">
+        <ion-icon name="star"></ion-icon>
+        {{ r.score }}/10
+      </span>
+    </button>
+
+    <app-empty-state
+      *ngIf="!reviews.length"
+      icon="chatbox-ellipses-outline"
+      title="Aún no has reseñado nada"
+      subtitle="Explora videojuegos y comparte tu opinión con una puntuación."
+    ></app-empty-state>
+  </div>
+</ion-content>

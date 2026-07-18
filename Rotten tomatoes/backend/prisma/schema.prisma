@@ -1,0 +1,101 @@
+// Esquema - reseñas de videojuegos (estilo Rotten Tomatoes / Questlog)
+// Base de datos: Neon (PostgreSQL serverless)
+// ORM: Prisma
+// API externa: RAWG (gratis, sin dominio ni suscripción)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Roles: público general vs críticos → Audience Score / Critic Score.
+enum Role {
+  USER
+  CRITIC
+}
+
+model User {
+  id           String       @id @default(cuid())
+  name         String       @db.VarChar(50)
+  email        String       @unique @db.VarChar(120)
+  password     String
+  role         Role         @default(USER)
+  avatar       String       @default("") @db.Text
+  /// Códigos de logros desbloqueados, ej: ["first_blood","perfect_ten"]
+  achievements Json         @default("[]")
+  reviews      Review[]
+  hiddenGames  HiddenGame[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([role])
+}
+
+model Game {
+  id           String    @id @default(cuid())
+  /// ID original en RAWG. Único para no duplicar al cachear.
+  rawgId       Int       @unique
+  title        String    @db.VarChar(300)
+  slug         String?   @db.VarChar(300)
+  overview     String    @default("") @db.Text
+  releaseDate  DateTime?
+  /// Solo URL (CDN de RAWG). NO se guarda el binario de la imagen.
+  coverUrl     String?   @db.Text
+  backgroundUrl String?  @db.Text
+  metacritic   Int?
+  rawgRating   Float?
+  playtime     Int? // horas aproximadas (RAWG)
+  /// Plataformas: [{ id, name }]
+  platforms    Json      @default("[]")
+  /// Desarrolladores: [{ id, name }]
+  developers   Json      @default("[]")
+  /// Clasificación ESRB guardada (ej: "Teen", "Mature"). Nunca "Adults Only".
+  esrbRating   String?   @db.VarChar(40)
+  genres       Genre[]      @relation("GameGenres")
+  reviews      Review[]
+  hiddenBy     HiddenGame[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([title])
+  @@index([releaseDate])
+}
+
+/// Juegos que el usuario quitó de "su" catálogo (la reseña y el juego siguen existiendo).
+model HiddenGame {
+  id        String   @id @default(cuid())
+  userId    String
+  gameId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, gameId])
+  @@index([userId])
+  @@index([gameId])
+}
+
+model Genre {
+  /// Mismo ID que RAWG para mapear al importar.
+  id    Int    @id
+  name  String @unique @db.VarChar(60)
+  games Game[] @relation("GameGenres")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  score     Int
+  content   String   @db.Text
+  userId    String
+  gameId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, gameId])
+  @@index([gameId])

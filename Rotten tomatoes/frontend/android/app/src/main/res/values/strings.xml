@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">QuestScore</string>
+    <string name="title_activity_main">QuestScore</string>
+    <string name="package_name">com.questscore.app</string>
+    <string name="custom_url_scheme">com.questscore.app</string>
+</resources>

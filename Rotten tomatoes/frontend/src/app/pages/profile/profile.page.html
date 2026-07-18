@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="qs-container body" *ngIf="user">
+    <!-- Encabezado -->
+    <div class="head">
+      <div class="avatar-edit">
+        <app-user-avatar [name]="name" [avatar]="avatar" [size]="96"></app-user-avatar>
+        <label class="avatar-btn">
+          <ion-icon name="camera"></ion-icon>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        </label>
+      </div>
+      <h1 class="uname">{{ user.name }}</h1>
+      <p class="uemail">{{ user.email }}</p>
+      <app-role-badge [role]="user.role"></app-role-badge>
+    </div>
+
+    <!-- Logros -->
+    <h2 class="section-title">Logros</h2>
+    <div class="ach-grid">
+      <div class="ach" *ngFor="let a of achievements" [class.unlocked]="isUnlocked(a.code)">
+        <div class="ach-icon">
+          <ion-icon [name]="a.icon"></ion-icon>
+        </div>
+        <p class="ach-title">{{ a.title }}</p>
+        <p class="ach-desc">{{ isUnlocked(a.code) ? a.description : a.howTo }}</p>
+        <span class="ach-state">{{ isUnlocked(a.code) ? 'Desbloqueado' : 'Bloqueado' }}</span>
+      </div>
+    </div>
+
+    <!-- Editar -->
+    <h2 class="section-title">Editar cuenta</h2>
+
+    <label class="field-label">Tipo de cuenta</label>
+    <div class="roles">
+      <button type="button" class="role" [class.active]="role === 'USER'" (click)="role = 'USER'">
+        <ion-icon name="people"></ion-icon>
+        <span>Audiencia</span>
+      </button>
+      <button type="button" class="role" [class.active]="role === 'CRITIC'" (click)="role = 'CRITIC'">
+        <ion-icon name="ribbon"></ion-icon>
+        <span>Crítico</span>
+      </button>
+    </div>
+
+    <label class="field-label">Nombre de usuario</label>
+    <div class="field">
+      <ion-icon name="person-outline"></ion-icon>
+      <input [(ngModel)]="name" autocapitalize="off" />
+    </div>
+
+    <label class="field-label">Correo</label>
+    <div class="field">
+      <ion-icon name="mail-outline"></ion-icon>
+      <input type="email" [(ngModel)]="email" autocapitalize="off" />
+    </div>
+
+    <label class="field-label">Nueva contraseña (opcional)</label>
+    <div class="field">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input type="password" placeholder="Dejar en blanco para no cambiar" [(ngModel)]="password" />
+    </div>
+
+    <ion-button expand="block" class="save" (click)="save()" [disabled]="saving">
+      <ion-spinner *ngIf="saving" name="crescent"></ion-spinner>
+      <span *ngIf="!saving">Guardar cambios</span>
+    </ion-button>
+
+    <ion-button expand="block" fill="outline" class="logout" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+
+    <ion-button expand="block" color="danger" class="delete" (click)="confirmDelete()">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      Eliminar cuenta
+    </ion-button>
+  </div>
+</ion-content>

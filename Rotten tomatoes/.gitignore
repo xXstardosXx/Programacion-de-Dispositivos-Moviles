@@ -1,24 +1,29 @@
 # Dependencias
+node_modules/
 **/node_modules/
 .pnpm-store/
 
-# Variables de entorno y secretos (mantener .env.example)
+# Variables de entorno y secretos (NUNCA subir .env con Neon/RAWG/JWT)
+.env
+.env.local
+.env.*.local
+.env.backup
 **/.env
 **/.env.local
 **/.env.*.local
-**/.env.backup
-**/VARIABLES_ENTORNO*.txt
 !**/.env.example
 
-# Build (Angular / Ionic)
+# Build Angular / Ionic
+dist/
 **/dist/
-**/www/
+www/
 **/.angular/
 **/.ionic/
-**/.tmp-export/
-**/out-tsc/
+*.tsbuildinfo
+.tmp-export/
+out-tsc/
 
-# Capacitor / Android Studio (artefactos locales; el proyecto android/ SÍ se versiona)
+# Capacitor Android (versionar android/; ignorar builds locales)
 **/android/.gradle/
 **/android/app/build/
 **/android/build/
@@ -30,6 +35,10 @@
 *.jks
 *.keystore
 
+# Prisma (SQLite local / journals; el schema.prisma SÍ se sube)
+**/prisma/*.db
+**/prisma/*.db-journal
+
 # Logs
 *.log
 npm-debug.log*
@@ -37,27 +46,20 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Sistema operativo
+# Sistema / IDE
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# IDE
 .idea/
-*.swp
-*.swo
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+*.swp
+*.swo
 
-# TypeScript
-*.tsbuildinfo
-
-# Tests / coverage
+# Tests / caché / secretos
 coverage/
-
-# Certificados y caché
-*.pem
 .cache/
+*.pem
 credentials.json
 google-services.json

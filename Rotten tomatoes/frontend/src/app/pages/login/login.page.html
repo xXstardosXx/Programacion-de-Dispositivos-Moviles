@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true" [scrollY]="true">
+  <div class="hero">
+    <ion-icon class="deco deco1" name="game-controller"></ion-icon>
+    <ion-icon class="deco deco2" name="ribbon"></ion-icon>
+    <div class="logo">
+      <ion-icon name="game-controller"></ion-icon>
+    </div>
+    <h1 class="brand">QuestScore</h1>
+    <p class="tagline">Reseñas de videojuegos: audiencia vs críticos</p>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title">Iniciar sesión</h2>
+
+    <label class="field-label">Correo</label>
+    <div class="field">
+      <ion-icon name="mail-outline"></ion-icon>
+      <input
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="tucorreo@gmail.com"
+        [(ngModel)]="email"
+        (keyup.enter)="submit()"
+      />
+    </div>
+
+    <label class="field-label">Contraseña</label>
+    <div class="field">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        autocomplete="current-password"
+        placeholder="Tu contraseña"
+        [(ngModel)]="password"
+        (keyup.enter)="submit()"
+      />
+      <ion-icon
+        class="eye"
+        [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+        (click)="showPassword = !showPassword"
+      ></ion-icon>
+    </div>
+
+    <ion-button expand="block" class="submit" (click)="submit()" [disabled]="loading">
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+      <span *ngIf="!loading">Entrar</span>
+    </ion-button>
+
+    <p class="foot">
+      ¿No tienes cuenta?
+      <a routerLink="/register">Regístrate</a>
+    </p>
+  </div>
+</ion-content>
