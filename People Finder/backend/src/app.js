@@ -39,7 +39,7 @@ app.get("/", (_req, res) => {
 
   return res.status(200).json({
     status: "ok",
-    message: "Backend activo. Define FRONTEND_URL para redirigir desde /.",
+    message: "PeopleFinder backend activo.",
   });
 });
 
